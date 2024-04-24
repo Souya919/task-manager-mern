@@ -1,0 +1,212 @@
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: #f8f9fc;
+}
+
+.login-page {
+  background: url('./images/bg.png');
+  background-attachment: fixed;
+}
+
+.content {
+  min-height: calc(100vh - 70px);
+}
+
+.fab {
+  font-size: 20px;
+}
+
+.footer {
+  height: 65px;
+  /* background-color: #dfe2e2; #f8f9fc */
+  background: rgba(0, 127, 61, 0.1);
+}
+
+.user-page {
+  background: url('./images/bg_2.png');
+}
+
+.user_homepage {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.loading_img {
+  position: absolute;
+  left: 45%;
+  top: 45%;
+}
+:root {
+  --input-padding-x: 1.5rem;
+  --input-padding-y: 0.75rem;
+}
+.login {
+  min-height: 100vh;
+}
+.btn-login {
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  padding: 0.75rem 1rem;
+  border-radius: 2rem;
+}
+.form-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+.form-label-group > input,
+.form-label-group > label {
+  padding: var(--input-padding-y) var(--input-padding-x);
+  height: auto;
+  border-radius: 2rem;
+}
+.form-label-group > label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+  line-height: 1.5;
+  color: #495057;
+  cursor: text;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition: all 0.1s ease-in-out;
+}
+.form-label-group input::-webkit-input-placeholder {
+  color: transparent;
+}
+.form-label-group input:-ms-input-placeholder {
+  color: transparent;
+}
+.form-label-group input::-ms-input-placeholder {
+  color: transparent;
+}
+.form-label-group input::-moz-placeholder {
+  color: transparent;
+}
+.form-label-group input::placeholder {
+  color: transparent;
+}
+.form-label-group input:not(:placeholder-shown) {
+  padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+  padding-bottom: calc(var(--input-padding-y) / 3);
+}
+.form-label-group input:not(:placeholder-shown) ~ label {
+  padding-top: calc(var(--input-padding-y) / 3);
+  padding-bottom: calc(var(--input-padding-y) / 3);
+  font-size: 12px;
+  color: #777;
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .form-label-group > label {
+    display: none;
+  }
+  .form-label-group input:-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+/* others */
+
+.navbar {
+  background-color: #c7e4e349;
+  /* background-color: #dee7e5; */
+  /* background: rgba(0, 127, 61, 0.1); */
+}
+
+.edit_modal_btn {
+  font-size: 15px;
+  padding: 0;
+  margin: 0;
+}
+
+/* date picker fields */
+
+.from-date,
+.to-date {
+  outline: none;
+  padding-top: 10px;
+  height: 45px;
+  width: auto;
+  background-color: rgb(236, 238, 237);
+  border: none;
+  border-radius: 10px;
+  /* border-top: black; */
+  border-bottom: 2px solid;
+}
+
+.from-date {
+  border-color: #17a2b8;
+}
+
+.to-date {
+  border-color: #007bff;
+}
+/* date picker fields end */
+
+.btn[class*='btn-outline-'] {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  /* padding-top: .7rem;
+  padding-bottom: .7rem; */
+}
+
+/* social icons */
+.fa-facebook-f {
+  color: #3b5998;
+}
+.fa-facebook-f:hover {
+  color: rgb(196, 16, 219);
+}
+
+.fa-linkedin-in {
+  color: #0e76a8;
+}
+
+.fa-linkedin-in:hover {
+  color: rgb(196, 16, 219);
+}
+
+.fa-youtube {
+  color: rgb(209, 33, 33);
+}
+.fa-youtube:hover {
+  color: rgb(196, 16, 219);
+}
+
+.notfound-image {
+  background: url('./images/norma-404.png') no-repeat;
+  height: 200px;
+  width: 500px;
+}
+
+/* set a div in the middle of the page */
+.not-found-page {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* offline or online alert */
+.connection-alert {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  z-index: 9999;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 200;
+  padding: 1.6rem 2rem;
+  -webkit-box-shadow: 0 4rem 4rem rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2rem 3rem rgba(0, 0, 0, 0.25);
+}
+.alert--connected {
+  background-color: #20bf6b;
+}
+.alert--disconnected {
+  background-color: #eb4d4b;
+}

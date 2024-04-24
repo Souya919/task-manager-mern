@@ -1,0 +1,43 @@
+{
+  "name": "task-controller",
+  "version": "1.0.0",
+  "description": "Task Controller The MERN Stack Web Application",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "start:prod": "NODE_ENV=production nodemon server.js",
+    "dev-server": "nodemon server.js",
+    "client-install": "npm install --prefix client",
+    "client": "npm start --prefix client",
+    "both": "concurrently \"npm run dev-server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "author": "Souya Handa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lgope/task-controller/issues"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "bootstrap": "^4.5.0",
+    "chalk": "^4.0.0",
+    "compression": "^1.7.4",
+    "concurrently": "^5.2.0",
+    "cors": "^2.8.5",
+    "dayjs": "^1.8.30",
+    "dotenv": "^8.2.0",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "mdbreact": "^4.27.0",
+    "moment": "^2.29.4",
+    "mongoose": "^5.9.28",
+    "morgan": "^1.10.0",
+    "react-content-loader": "^5.1.2",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^9.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
