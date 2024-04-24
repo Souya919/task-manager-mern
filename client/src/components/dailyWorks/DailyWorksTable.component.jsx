@@ -1,25 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { MDBDataTable } from "mdbreact";
-import { Row, Col, Button, Form, FormGroup, Input } from "reactstrap";
-import dayjs from "dayjs";
-import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator";
+import React, { useState, useEffect } from 'react';
+import { MDBDataTable } from 'mdbreact';
+import { Row, Col, Button, Form, FormGroup, Input } from 'reactstrap';
+import dayjs from 'dayjs';
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import {
   getUserWorks,
   saveTodayWork,
-} from "../../redux/actions/dailyWorkActions";
-import { getUserFilterdWorks } from "../../redux/actions/dailyWorkActions";
-import DateForm from "../form/DateForm.component";
+} from '../../redux/actions/dailyWorkActions';
+import {
+  getUserFilterdWorks,
+  deleteDailyWorks,
+} from '../../redux/actions/dailyWorkActions';
+import DateForm from '../form/DateForm.component';
 
-import ShowModal from "../form/ShowModal.component";
-import EditModal from "./EditModal.component";
-import LoadingSkeleton from "../loading/LoadingSkeleton.component";
+import ShowModal from '../form/ShowModal.component';
+import EditModal from './EditModal.component';
+import LoadingSkeleton from '../loading/LoadingSkeleton.component';
 
-import { showAlert } from "../alert";
-import SaveBtn from "../form/SaveBtn.component";
-import CancleBtn from "../form/CancleBtn.component";
+import { showAlert } from '../alert';
+import SaveBtn from '../form/SaveBtn.component';
+import CancleBtn from '../form/CancleBtn.component';
 
 const DailyWorksTable = ({
   user,
@@ -28,14 +31,20 @@ const DailyWorksTable = ({
   saveTodayWork,
   dailyWorks,
   getUserFilterdWorks,
+  deleteDailyWorks,
 }) => {
   const [isDataChange, setIsDataChange] = useState(false);
   const [isopen, setIsopen] = useState(false);
-  const [title, setTitle] = useState("");
-  const [des, setDes] = useState("");
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
+  const [title, setTitle] = useState('');
+  const [des, setDes] = useState('');
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
   let rowsData = [];
+
+  const onDeleteClick = (id) => {
+    deleteDailyWorks(id);
+    showAlert('success', 'Task Deleted Successfully!');
+  };
 
   useEffect(() => {
     if (user) {
@@ -44,24 +53,34 @@ const DailyWorksTable = ({
   }, [user, isDataChange, getUserWorks]);
 
   if (isDailyWorkLoading) return <LoadingSkeleton />;
-  // storing user daily works data in rows data
 
   if (dailyWorks.length > 0) {
     dailyWorks.forEach((da) =>
       rowsData.push({
         id: da._id,
-        date: dayjs(da.createdAt).format("MMMM DD YYYY"),
+        date: dayjs(da.createdAt).format('MMMM DD YYYY'),
         title: da.title,
         description:
           da.description.length >= 25 ? (
             <ShowModal
-              buttonLabel={da.description.substr(0, 25) + "..."}
+              buttonLabel={da.description.substr(0, 25) + '...'}
               data={da.description}
             />
           ) : (
             da.description
           ),
-        action: <EditModal data={da} />,
+        action: (
+          <>
+            <EditModal data={da} />
+            <button
+              className="btn btn-link text-danger edit_modal_btn pl-3"
+              title="Delete"
+              onClick={() => onDeleteClick(da._id)}
+            >
+              <i className="fas fa-trash-alt"></i>
+            </button>
+          </>
+        ),
       })
     );
   }
@@ -74,25 +93,25 @@ const DailyWorksTable = ({
   };
   const columns = [
     {
-      field: "date",
-      label: "Date",
+      field: 'date',
+      label: 'Date',
       sort: true,
     },
     {
-      field: "title",
-      label: "Daily work Title",
+      field: 'title',
+      label: 'Daily work Title',
       sort: true,
     },
     {
-      field: "description",
-      label: "Description",
+      field: 'description',
+      label: 'Description',
       sort: true,
     },
     {
-      field: "action",
-      label: "Action",
-      headerAlign: "center",
-      align: "center",
+      field: 'action',
+      label: 'Action',
+      headerAlign: 'center',
+      align: 'center',
     },
   ];
 
@@ -124,13 +143,9 @@ const DailyWorksTable = ({
       };
       saveTodayWork(body);
       setIsopen(false);
-      showAlert("success", "Your work has been saved!");
+      showAlert('success', 'Your work has been saved!');
     }
   };
-
-  console.log("dailyWorks", dailyWorks);
-  console.log("rowsData", rowsData);
-  console.log("columns", columns);
 
   const data = { columns, rows: rowsData };
 
@@ -142,7 +157,7 @@ const DailyWorksTable = ({
       )}
       <Button outline color="success" onClick={handleAddBtnClick}>
         Add New
-      </Button>{" "}
+      </Button>{' '}
       <br />
       {isopen && (
         <Form className="pt-2 pb-2 mb-5">
@@ -150,7 +165,7 @@ const DailyWorksTable = ({
             <Input
               type="text"
               id="date"
-              value={dayjs(Date.now()).format("MMMM DD YYYY")}
+              value={dayjs(Date.now()).format('MMMM DD YYYY')}
               readOnly
             />
           </FormGroup>
@@ -195,6 +210,7 @@ export default connect(mapStateToProps, {
   getUserWorks,
   saveTodayWork,
   getUserFilterdWorks,
+  deleteDailyWorks,
 })(DailyWorksTable);
 
 // return <MDBDataTable striped bordered hover small data={data} />;

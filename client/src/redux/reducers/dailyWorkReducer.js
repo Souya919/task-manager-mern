@@ -33,7 +33,7 @@ export default function (state = initialState, action) {
     case actions.UPDATE_USER_WORK:
       return {
         ...state,
-        userWorks: state.userWorks.map(work =>
+        userWorks: state.userWorks.map((work) =>
           work._id === action.payload._id ? { ...action.payload } : work
         ),
         loading: false,
@@ -42,7 +42,10 @@ export default function (state = initialState, action) {
     case actions.DELETE_USER_WORK:
       return {
         ...state,
-        allWorks: state.allWorks.filter(work => work._id !== action.payload),
+        allWorks: state.allWorks.filter((work) => work._id !== action.payload),
+        userWorks: state.userWorks.filter(
+          (work) => work._id !== action.payload
+        ),
         loading: false,
       };
 

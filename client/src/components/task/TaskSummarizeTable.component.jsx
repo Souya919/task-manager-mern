@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { Row, Col } from "reactstrap";
-import { connect } from "react-redux";
-import dayjs from "dayjs";
+import { Row, Col } from 'reactstrap';
+import { connect } from 'react-redux';
+import dayjs from 'dayjs';
 
-import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator";
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
-import EditTaskModal from "./EditTaskModal.component";
-import { getUserTasks } from "../../redux/actions/userActions";
+import EditTaskModal from './EditTaskModal.component';
+import { getUserTasks } from '../../redux/actions/userActions';
 import {
   updateTask,
   geUsertFilterdTasks,
-} from "../../redux/actions/taskActions";
-import DateForm from "../form/DateForm.component";
+} from '../../redux/actions/taskActions';
+import DateForm from '../form/DateForm.component';
 
-import ShowModal from "../form/ShowModal.component";
-import LoadingSkeleton from "../loading/LoadingSkeleton.component";
+import ShowModal from '../form/ShowModal.component';
+import LoadingSkeleton from '../loading/LoadingSkeleton.component';
 
 const TaskSummarizeTable = ({
   user,
@@ -27,8 +27,8 @@ const TaskSummarizeTable = ({
   loading,
 }) => {
   const [isDataChanged, setIsDataChanged] = useState(false);
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
   // let data;
 
   useEffect(() => {
@@ -41,13 +41,13 @@ const TaskSummarizeTable = ({
     tasks.forEach((task) => {
       rowsData.push({
         id: task._id,
-        createdAt: dayjs(task.createdAt).format("MMMM DD YYYY"),
+        createdAt: dayjs(task.createdAt).format('MMMM DD YYYY'),
         taskName: task.taskName,
         progress: task.progress,
         comment:
           task.comment.length >= 25 ? (
             <ShowModal
-              buttonLabel={task.comment.substr(0, 25) + "..."}
+              buttonLabel={task.comment.substr(0, 25) + '...'}
               data={task.comment}
             />
           ) : (
@@ -67,30 +67,30 @@ const TaskSummarizeTable = ({
 
   const columns = [
     {
-      text: "Assigned Date",
-      dataField: "createdAt",
+      text: 'Assigned Date',
+      dataField: 'createdAt',
       sort: true,
     },
     {
-      text: "Task",
-      dataField: "taskName",
+      text: 'Task',
+      dataField: 'taskName',
       sort: true,
     },
     {
-      text: "Progress",
-      dataField: "progress",
+      text: 'Progress',
+      dataField: 'progress',
       sort: true,
     },
     {
-      text: "Comment",
-      dataField: "comment",
+      text: 'Comment',
+      dataField: 'comment',
       sort: true,
     },
     {
-      dataField: "action",
-      text: "Action",
-      headerAlign: "center",
-      align: "center",
+      dataField: 'action',
+      text: 'Action',
+      headerAlign: 'center',
+      align: 'center',
     },
   ];
 
