@@ -4,6 +4,8 @@ export const SAVE_USER = "SAVE_USER";
 
 export const DELETE_USER = "DELETE_USER";
 
+export const SET_STATUS = "SET_STATUS";
+
 export const GET_ALL_USERS_WORK = "GET_ALL_USERS_WORK";
 
 export const GET_USER_WORKS = "GET_USER_WORKS";

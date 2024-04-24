@@ -35,8 +35,21 @@ export const addUser = (body) => (dispatch, getState) => {
     });
 };
 
+export const changeStatus = (id) => (dispatch, getState) => {
+  axios
+    .get(`/api/admin/${id}`, tokenConfig(getState))
+    .then((res) =>
+      dispatch({
+        type: actions.SET_STATUS,
+        payload: id,
+      })
+    )
+    .catch((err) =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
+};
+
 export const deleteUser = (id) => (dispatch, getState) => {
-  console.log("id", id);
   axios
     .delete(`/api/admin/${id}`, tokenConfig(getState))
     .then((res) =>

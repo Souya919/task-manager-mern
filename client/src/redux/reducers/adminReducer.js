@@ -27,6 +27,15 @@ export default function (state = initialState, action) {
         loading: false,
       };
 
+    case actions.SET_STATUS:
+      return {
+        allUsers: state.allUsers.map((user) => {
+          if (user._id === action.payload) user.active = !user.active;
+          return user;
+        }),
+        loading: false,
+      };
+
     case actions.USERS_LOADING:
       return {
         ...state,

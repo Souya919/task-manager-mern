@@ -17,6 +17,11 @@ router.get("/get-all-user", auth, ensureAdmin, adminController.getAllUsers);
 
 // router.get('/user-info', ensureAuthenticated, ensureAdmin, adminController.getAllUsers);
 
+// @route PUT api/admin/:id
+// @desc Set the User Status
+// @access only For Admin and Private
+router.get("/:id", auth, ensureAdmin, adminController.setUserActive);
+
 // @route POST api/admin/create-user
 // @desc Create An User
 // @access only For Admin and Private

@@ -66,3 +66,21 @@ export const deleteUser = catchAsync(async (req, res, next) => {
     data: null,
   });
 });
+
+export const setUserActive = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  await User.findByIdAndUpdate(
+    req.params.id,
+    { active: !user.active },
+    {
+      new: true,
+    }
+  );
+  if (!user) {
+    return next(new AppError("No User found with that id", 404));
+  }
+  res.status(204).json({
+    status: "success",
+    data: null,
+  });
+});
