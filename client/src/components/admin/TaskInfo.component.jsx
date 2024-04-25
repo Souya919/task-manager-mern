@@ -42,8 +42,8 @@ const TaskInfo = ({
   }, [isDataChanged, getAllTask]);
 
   // save value on change
-  const handleEmailChange = e => setEmail(e.target.value);
-  const handleTaskChange = e => setTask(e.target.value);
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handleTaskChange = (e) => setTask(e.target.value);
 
   // getting all user from data base
   const handleAddBtnClick = () => {
@@ -58,25 +58,25 @@ const TaskInfo = ({
   };
 
   // delete task on delete button click
-  const onDeleteClick = id => {
+  const onDeleteClick = (id) => {
     deleteTasks(id);
     showAlert('success', 'Task Deleted successfully!');
   };
 
   // getting data based on date
-  const handleBtnClick = e => {
+  const handleBtnClick = (e) => {
     e.preventDefault();
     getFilterdTasks(fromDate, toDate);
   };
 
   // reset data on all btn click
-  const handleResetDate = e => {
+  const handleResetDate = (e) => {
     e.preventDefault();
     setIsDataChanged(!isDataChanged);
   };
 
   // assign new task to a user
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     if (email && task) {
@@ -100,7 +100,7 @@ const TaskInfo = ({
   let rowsData = [];
 
   if (tasks.length > 0) {
-    tasks.forEach(task => {
+    tasks.forEach((task) => {
       rowsData.push({
         createdAt: dayjs(task.createdAt).format('h:mm a, MMMM DD, YYYY'),
         userEmail: task.userEmail,
@@ -119,11 +119,11 @@ const TaskInfo = ({
         action: (
           <center>
             <button
-              className='btn btn-link text-danger edit_modal_btn'
-              title='Delete'
+              className="btn btn-link text-danger edit_modal_btn"
+              title="Delete"
               onClick={() => onDeleteClick(task._id)}
             >
-              <i className='fas fa-trash-alt'></i>
+              <i className="fas fa-trash-alt"></i>
             </button>
           </center>
         ),
@@ -175,8 +175,8 @@ const TaskInfo = ({
   }
 
   return (
-    <div className='admin-taskinfo'>
-      <div className='container'>
+    <div className="admin-taskinfo">
+      <div className="container">
         <div>{tasks.length < 0 && <h1>No task!</h1>}</div>
         {tasks.length > 0 && (
           <>
@@ -188,10 +188,10 @@ const TaskInfo = ({
                 setToDate={setToDate}
                 handleReset={handleResetDate}
               />
-              <Col lg='3' className='pt-4'>
+              <Col lg="3" className="pt-4">
                 <Button
                   outline
-                  color='success'
+                  color="success"
                   style={{ borderRadius: '10px' }}
                   onClick={handleAddBtnClick}
                 >
@@ -202,18 +202,18 @@ const TaskInfo = ({
             <MDBDataTable striped bordered hover fixed data={data} />
           </>
         )}
-        <Row className='row-cols-1 pb-3'>
+        <Row className="row-cols-1 pb-3">
           <Col></Col>
         </Row>
-        <Row className='pb-5 mb-5'>
-          <Col lg='6' md='8' sm='12'>
+        <Row className="pb-5 mb-5">
+          <Col lg="6" md="8" sm="12">
             {isopen && (
-              <Form id='works_input_form' onSubmit={handleSubmit}>
+              <Form id="works_input_form" onSubmit={handleSubmit}>
                 <FormGroup>
                   <Input
-                    type='select'
-                    name='userEmail'
-                    id='userEmail'
+                    type="select"
+                    name="userEmail"
+                    id="userEmail"
                     required
                     onChange={handleEmailChange}
                   >
@@ -221,7 +221,7 @@ const TaskInfo = ({
                       Assign User
                     </option>
                     {allUsers &&
-                      allUsers.map(user => (
+                      allUsers.map((user) => (
                         <option key={user.email} data-subtext={user.name}>
                           {user.email}
                         </option>
@@ -230,14 +230,14 @@ const TaskInfo = ({
                 </FormGroup>
                 <FormGroup>
                   <Input
-                    type='textarea'
-                    id='task'
-                    placeholder='Task'
+                    type="textarea"
+                    id="task"
+                    placeholder="Task"
                     required
                     onChange={handleTaskChange}
                   />
                 </FormGroup>
-                <Button className='mr-2' outline color='secondary' title='save'>
+                <Button className="mr-2" outline color="secondary" title="save">
                   Save
                 </Button>
                 <CancleBtn onClickFunc={cancelBtnClick} />
@@ -250,7 +250,7 @@ const TaskInfo = ({
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   allUsers: state.admin.allUsers,
   tasks: state.task.tasks,
   loading: state.task.loading,

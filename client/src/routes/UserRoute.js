@@ -9,14 +9,13 @@ const UserRoute = ({
   ...rest
 }) => {
   if ((user && user.role === 'admin') || isAuthenticated === false) {
-    return <Redirect to='/' />;
+    return <Redirect to="/" />;
   }
-
 
   return <Route {...rest} component={Component} />;
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   user: state.auth.user,
 });

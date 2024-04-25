@@ -12,10 +12,9 @@ function UsersInfo({ getAllUsers, allUsers }) {
     getAllUsers();
   }, [isDataChanged, getAllUsers]);
 
-
   return (
-    <div className='admin-userinfo'>
-      <div className='container'>
+    <div className="admin-userinfo">
+      <div className="container">
         {allUsers ? <UserListTable users={allUsers} /> : <div>Loading...</div>}
         <AddUserForm
           buttonLabel={'Add New User'}
@@ -27,7 +26,7 @@ function UsersInfo({ getAllUsers, allUsers }) {
   );
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   allUsers: state.admin.allUsers,
 });
 

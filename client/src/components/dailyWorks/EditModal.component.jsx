@@ -8,6 +8,10 @@ import {
   Form,
   FormGroup,
   Input,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from 'reactstrap';
 
 import { connect } from 'react-redux';
@@ -19,6 +23,7 @@ const EditModal = ({ data, updateWork }) => {
   const [modal, setModal] = useState(false);
   const [title, setTitle] = useState(data.title);
   const [des, setDes] = useState(data.description);
+  const [status, setStatus] = useState(data.status);
 
   const toggle = () => setModal(!modal);
 
@@ -26,12 +31,21 @@ const EditModal = ({ data, updateWork }) => {
     mySetFunction(event.currentTarget.value);
   };
 
-  const handleSubmit = e => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const dropdownToggle = () => setDropdownOpen((prevState) => !prevState);
+
+  const handleStatus = (status) => {
+    setStatus(status);
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const body = {
       title,
       description: des,
+      status,
     };
 
     updateWork(data._id, body);
@@ -41,12 +55,11 @@ const EditModal = ({ data, updateWork }) => {
   return (
     <Fragment>
       <button
-        className='btn btn-link text-info edit_modal_btn'
-        title='Edit'
+        className="btn btn-link text-info edit_modal_btn"
+        title="Edit"
         onClick={toggle}
       >
-        <i className='fas fa-sliders-h'></i>
-        {/* {buttonLabel} */}
+        <i className="fas fa-sliders-h"></i>
       </button>
 
       <Modal isOpen={modal} toggle={toggle}>
@@ -55,25 +68,47 @@ const EditModal = ({ data, updateWork }) => {
           <ModalBody>
             <FormGroup>
               <Input
-                type='text'
-                name='title'
-                id='title'
+                type="text"
+                name="title"
+                id="title"
                 value={title}
-                onChange={e => handleTextFieldChange(setTitle, e)}
+                onChange={(e) => handleTextFieldChange(setTitle, e)}
               />
             </FormGroup>
             <FormGroup>
               <Input
-                type='text'
-                name='des'
-                id='des'
+                type="text"
+                name="des"
+                id="des"
                 value={des}
-                onChange={e => handleTextFieldChange(setDes, e)}
+                onChange={(e) => handleTextFieldChange(setDes, e)}
               />
+            </FormGroup>
+            <FormGroup>
+              <Dropdown isOpen={dropdownOpen} toggle={dropdownToggle}>
+                <DropdownToggle caret>{status}</DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem onClick={() => handleStatus('Planned')}>
+                    Planned
+                  </DropdownItem>
+                  <DropdownItem onClick={() => handleStatus('In Progress')}>
+                    In Progress
+                  </DropdownItem>
+                  <DropdownItem onClick={() => handleStatus('Completed')}>
+                    Completed
+                  </DropdownItem>
+                  <DropdownItem onClick={() => handleStatus('Delayed')}>
+                    Delayed
+                  </DropdownItem>
+                  <DropdownItem onClick={() => handleStatus('Cancelled')}>
+                    Cancelled
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </FormGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color='primary' type='submit'>
+            <Button color="primary" type="submit">
               Save
             </Button>
           </ModalFooter>

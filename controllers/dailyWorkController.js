@@ -1,15 +1,16 @@
 // Catch Async Error
-import catchAsync from '../utils/catchAsync.js'
+import catchAsync from '../utils/catchAsync.js';
 
 // Global Error Handler
-import AppError from '../utils/appError.js'
+import AppError from '../utils/appError.js';
 
 // Global Error Handler
-import * as factory from './handlerFactory.js'
+import * as factory from './handlerFactory.js';
 
 // Models
-import DailyWork from '../models/dailyWorkModel.js'
-import User from '../models/userModel.js'
+import DailyWork from '../models/dailyWorkModel.js';
+import User from '../models/userModel.js';
+import Log from '../models/logModel.js';
 // import moment from 'moment');
 
 // TODO: update | delete functionality on demand
@@ -33,6 +34,17 @@ export const saveDailyWork = catchAsync(async (req, res, next) => {
 
   if (!todaysWork)
     return next(new AppError('Something Wrong To Save! Try again.', 404));
+
+  const newLog = await Log.create({
+    userId,
+    userName,
+    dailyWorkId: todaysWork._id,
+    dailyWorkTitle: todaysWork.title,
+    description: `${userName} created a new task: ${todaysWork.title}`,
+  });
+
+  if (!newLog)
+    return next(new AppError('Something Wrong To Log! Try again.', 404));
 
   return res.status(201).json({
     status: 'success',
@@ -62,6 +74,30 @@ export const getAllDailyWorks = factory.getAll(DailyWork);
 // get all daily works, this routes is only for admin
 export const getDailyWorksByDate = factory.getDataByDate(DailyWork);
 
-// delete controller
-export const updateDailyWork = factory.updateOne(DailyWork);
+// export const updateDailyWork = factory.updateOne(DailyWork);
+export const updateDailyWork = catchAsync(async (req, res, next) => {
+  const doc = await DailyWork.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  if (!doc) {
+    return next(new AppError('No doccument found with that id', 404));
+  }
+
+  const newLog = await Log.create({
+    userId: doc.userId,
+    userName: doc.userName,
+    dailyWorkId: doc._id,
+    dailyWorkTitle: doc.title,
+    description: `${doc.userName} updated the task: ${doc.title}`,
+  });
+
+  if (!newLog)
+    return next(new AppError('Something Wrong To Log! Try again.', 404));
+
+  res.status(200).json({
+    status: 'success',
+    doc,
+  });
+});
+
 export const deleteDailyWork = factory.deleteOne(DailyWork);

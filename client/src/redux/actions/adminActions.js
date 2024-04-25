@@ -1,12 +1,12 @@
-import axios from "axios";
-import * as actions from "./actionTypes";
-import { returnErrors } from "./errorActions";
-import { tokenConfig } from "./authActions";
+import axios from 'axios';
+import * as actions from './actionTypes';
+import { returnErrors } from './errorActions';
+import { tokenConfig } from './authActions';
 // get all users
 export const getAllUsers = () => (dispatch, getState) => {
   dispatch(setUsersLoading());
   axios
-    .get("/api/admin/get-all-user", tokenConfig(getState))
+    .get('/api/admin/get-all-user', tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: actions.GET_ALL_USERS,
@@ -18,10 +18,25 @@ export const getAllUsers = () => (dispatch, getState) => {
     });
 };
 
-// add new user
+// get all logs
+export const getAllLogs = () => (dispatch, getState) => {
+  dispatch(setUsersLoading());
+  axios
+    .get('/api/admin/get-logs', tokenConfig(getState))
+    .then((res) => {
+      dispatch({
+        type: actions.GET_ALL_LOGS,
+        payload: res.data.doc,
+      });
+    })
+    .catch((err) => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+    });
+};
+
 export const addUser = (body) => (dispatch, getState) => {
   axios
-    .post("api/admin/create-user", body, tokenConfig(getState))
+    .post('api/admin/create-user', body, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: actions.SAVE_USER,
@@ -30,7 +45,23 @@ export const addUser = (body) => (dispatch, getState) => {
     })
     .catch((err) => {
       dispatch(
-        returnErrors(err.response.data, err.response.status, "ADD_USER_FAIL")
+        returnErrors(err.response.data, err.response.status, 'ADD_USER_FAIL')
+      );
+    });
+};
+
+export const updateUser = (id, body) => (dispatch, getState) => {
+  axios
+    .post(`api/admin/${id}`, body, tokenConfig(getState))
+    .then((res) => {
+      dispatch({
+        type: actions.UPDATE_USER,
+        payload: res.data.user,
+      });
+    })
+    .catch((err) => {
+      dispatch(
+        returnErrors(err.response.data, err.response.status, 'ADD_USER_FAIL')
       );
     });
 };
@@ -66,7 +97,7 @@ export const deleteUser = (id) => (dispatch, getState) => {
 // assign task
 export const assignTask = (body) => (dispatch, getState) => {
   axios
-    .post("api/task/assign-task", body, tokenConfig(getState))
+    .post('api/task/assign-task', body, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: actions.ADD_TASK,
@@ -75,7 +106,7 @@ export const assignTask = (body) => (dispatch, getState) => {
     })
     .catch((err) => {
       dispatch(
-        returnErrors(err.response.data, err.response.status, "ASSIGN_TASK_FAIL")
+        returnErrors(err.response.data, err.response.status, 'ASSIGN_TASK_FAIL')
       );
     });
 };

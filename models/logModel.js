@@ -1,9 +1,14 @@
 import mongoose from 'mongoose';
 
-const dailyWorkSchema = new mongoose.Schema({
+const logSchema = new mongoose.Schema({
   userId: {
     type: String,
     ref: 'User',
+    required: [true, 'Daily work must belong to a user.'],
+  },
+  dailyWorkId: {
+    type: String,
+    ref: 'DailyWork',
     required: [true, 'Daily work must belong to a user.'],
   },
   userName: {
@@ -11,18 +16,14 @@ const dailyWorkSchema = new mongoose.Schema({
     ref: 'User',
     required: [true, 'Daily work must have an user name'],
   },
-  title: {
+  dailyWorkTitle: {
     type: String,
-    ref: 'Task',
+    ref: 'DailyWork',
     required: [true, 'Daily work must have a title.'],
   },
   description: {
     type: String,
     required: [true, 'Daily work must have a description.'],
-  },
-  status: {
-    type: String,
-    default: 'Planned',
   },
   createdAt: {
     type: Date,
@@ -30,5 +31,5 @@ const dailyWorkSchema = new mongoose.Schema({
   },
 });
 
-const DailyWork = mongoose.model('DailyWork', dailyWorkSchema);
-export default DailyWork;
+const Log = mongoose.model('Log', logSchema);
+export default Log;

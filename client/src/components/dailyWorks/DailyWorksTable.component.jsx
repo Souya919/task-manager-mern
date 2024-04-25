@@ -69,6 +69,7 @@ const DailyWorksTable = ({
           ) : (
             da.description
           ),
+        status: da.status || 'Planned',
         action: (
           <>
             <EditModal data={da} />
@@ -105,6 +106,11 @@ const DailyWorksTable = ({
     {
       field: 'description',
       label: 'Description',
+      sort: true,
+    },
+    {
+      field: 'status',
+      label: 'Status',
       sort: true,
     },
     {
