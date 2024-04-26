@@ -42,7 +42,7 @@ const AddUserForm = ({ buttonLabel, addUser, clearErrors, error }) => {
   const handleTextFieldChange = (mySetFunction, event) => {
     mySetFunction(event.currentTarget.value);
   };
-  const handleOnSubmit = event => {
+  const handleOnSubmit = (event) => {
     event.preventDefault();
     const body = {
       name,
@@ -57,60 +57,60 @@ const AddUserForm = ({ buttonLabel, addUser, clearErrors, error }) => {
 
   return (
     <div>
-      <Button color='danger' onClick={toggle}>
+      <Button color="danger" onClick={toggle}>
         {buttonLabel}
       </Button>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Add New User Form.</ModalHeader>
+        <ModalHeader toggle={toggle}>Add New User</ModalHeader>
         <ModalBody>
-          {msg ? <Alert color='danger'>{msg}</Alert> : null}
-          <Form id='input_form'>
+          {msg ? <Alert color="danger">{msg}</Alert> : null}
+          <Form id="input_form">
             <FormGroup>
-              <Label for='name'>Name</Label>
+              <Label for="name">Name</Label>
               <Input
-                type='name'
-                name='name'
-                id='name'
-                className='mb-3'
-                placeholder='Name'
+                type="name"
+                name="name"
+                id="name"
+                className="mb-3"
+                placeholder="Name"
                 required
-                onChange={e => handleTextFieldChange(setName, e)}
+                onChange={(e) => handleTextFieldChange(setName, e)}
               />
 
-              <Label for='designation'>Designation</Label>
+              <Label for="designation">Designation</Label>
               <Input
-                type='text'
-                name='designation'
-                id='designation'
-                className='mb-3'
-                placeholder='Designation'
+                type="text"
+                name="designation"
+                id="designation"
+                className="mb-3"
+                placeholder="Designation"
                 required
-                onChange={e => handleTextFieldChange(setDesi, e)}
+                onChange={(e) => handleTextFieldChange(setDesi, e)}
               />
 
-              <Label for='email'>Email</Label>
+              <Label for="email">Email</Label>
               <Input
-                type='email'
-                name='email'
-                id='email'
-                className='mb-3'
-                placeholder='Email'
+                type="email"
+                name="email"
+                id="email"
+                className="mb-3"
+                placeholder="Email"
                 required
-                onChange={e => handleTextFieldChange(setEmail, e)}
+                onChange={(e) => handleTextFieldChange(setEmail, e)}
               />
 
-              <Label for='password'>Password</Label>
+              <Label for="password">Password</Label>
               <Input
-                type='password'
-                name='password'
-                id='password'
-                className='mb-3'
-                placeholder='Password'
+                type="password"
+                name="password"
+                id="password"
+                className="mb-3"
+                placeholder="Password"
                 required
-                onChange={e => handleTextFieldChange(setPass, e)}
+                onChange={(e) => handleTextFieldChange(setPass, e)}
               />
               <Button
-                color='dark'
+                color="dark"
                 style={{ marginTop: '2rem' }}
                 block
                 onClick={handleOnSubmit}
@@ -125,7 +125,7 @@ const AddUserForm = ({ buttonLabel, addUser, clearErrors, error }) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: state.error,
 });
 

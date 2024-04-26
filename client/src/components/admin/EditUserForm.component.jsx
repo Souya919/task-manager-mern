@@ -62,7 +62,7 @@ const EditUserForm = ({
 
   return (
     <Modal isOpen={modal} toggle={toggle}>
-      <ModalHeader toggle={toggle}>Update User Form.</ModalHeader>
+      <ModalHeader toggle={toggle}>Update User</ModalHeader>
       <ModalBody>
         {msg ? <Alert color="danger">{msg}</Alert> : null}
         <Form id="input_form">
